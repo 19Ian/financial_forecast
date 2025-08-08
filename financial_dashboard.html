@@ -382,6 +382,147 @@
                 gap: 10px;
             }
         }
+
+		/* Bank Management Styles */
+		.bank-section {
+			transition: max-height 0.3s ease, opacity 0.3s ease;
+			overflow: hidden;
+		}
+
+		.bank-section.collapsed {
+			max-height: 0;
+			opacity: 0;
+		}
+
+		.bank-list {
+			max-height: 400px;
+			overflow-y: auto;
+			border: 1px solid #444;
+			border-radius: 8px;
+			background: #2a2a2a;
+		}
+
+		.bank-item {
+			padding: 15px;
+			border-bottom: 1px solid #333;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			transition: background-color 0.2s ease;
+		}
+
+		.bank-item:hover {
+			background-color: #333;
+		}
+
+		.bank-item:last-child {
+			border-bottom: none;
+		}
+
+		.bank-details {
+			flex: 1;
+		}
+
+		.bank-details strong {
+			color: #ffffff;
+			font-size: 1em;
+		}
+
+		.bank-details small {
+			color: #888;
+			font-size: 0.85em;
+		}
+
+		.bank-actions {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			gap: 5px;
+		}
+
+		.bank-summary {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+			gap: 15px;
+			margin-bottom: 20px;
+			padding: 15px;
+			background: #333;
+			border-radius: 8px;
+		}
+
+		.bank-summary-item {
+			text-align: center;
+		}
+
+		.bank-summary-item h4 {
+			margin: 0 0 5px 0;
+			color: #b0b0b0;
+			font-size: 0.9em;
+		}
+
+		.bank-summary-item .value {
+			font-size: 1.2em;
+			font-weight: bold;
+		}
+
+		.interest-display {
+			color: #4caf50;
+			font-weight: bold;
+		}
+
+		/* Add to your existing CSS */
+		.budget-item[data-bank-linked="true"] {
+			border-left: 3px solid #4caf50;
+			background: linear-gradient(90deg, rgba(76, 175, 80, 0.1) 0%, transparent 100%);
+		}
+
+		.budget-item[data-bank-interest="true"] {
+			border-left: 3px solid #ff9800;
+			background: linear-gradient(90deg, rgba(255, 152, 0, 0.1) 0%, transparent 100%);
+		}
+
+		#bankSelectionGroup {
+			transition: all 0.3s ease;
+			border: 1px solid #444;
+			border-radius: 6px;
+			padding: 10px;
+			background: #333;
+		}
+
+		#bankSelectionGroup select option[value=""]:first-child {
+			color: #888;
+			font-style: italic;
+		}
+
+		.budget-item small:contains("⚠️") {
+			color: #ff9800 !important;
+		}
+
+		/* Cash flow analysis styling */
+		.positive {
+			color: #4caf50 !important;
+		}
+
+		.negative {
+			color: #f44336 !important;
+		}
+
+		.budget-item[data-bank-linked="true"][data-bank-type="income"] {
+			border-left: 3px solid #4caf50;
+			background: linear-gradient(90deg, rgba(76, 175, 80, 0.1) 0%, transparent 100%);
+		}
+
+		.budget-item[data-bank-linked="true"][data-bank-type="expense"] {
+			border-left: 3px solid #f44336;
+			background: linear-gradient(90deg, rgba(244, 67, 54, 0.1) 0%, transparent 100%);
+		}
+
+		.budget-item[data-bank-interest="true"] {
+			border-left: 3px solid #ff9800;
+			background: linear-gradient(90deg, rgba(255, 152, 0, 0.1) 0%, transparent 100%);
+		}
+
+
     </style>
 </head>
 <body>
@@ -462,13 +603,21 @@
                     <label for="budgetAmount">Monthly Amount:</label>
                     <input type="number" id="budgetAmount" step="0.01" required placeholder="Enter monthly budget amount">
                 </div>
-                                <div class="form-group">
+				<div class="form-group">
                     <label for="budgetType">Type:</label>
                     <select id="budgetType" required>
                         <option value="expense">Expense</option>
                         <option value="income">Income</option>
                     </select>
                 </div>
+				<div class="form-group" id="bankSelectionGroup" style="display: none;">
+					<label for="budgetLinkedBank" id="bankSelectionLabel">Link to Bank Account (Optional):</label>
+					<select id="budgetLinkedBank">
+						<option value="">None - Don't link to bank</option>
+						<!-- Options will be populated dynamically -->
+					</select>
+					<small id="bankSelectionHelp">Select which bank account this transaction affects</small>
+				</div>
                 <div class="form-group">
                     <label for="budgetStartDate">Start Date:</label>
                     <input type="date" id="budgetStartDate" required>
@@ -487,6 +636,58 @@
             </form>
         </div>
     </div>
+
+	<!-- Add this after the Budget Management section, before the closing container div -->
+	<div class="chart-container">
+		<div class="budget-header">
+			<h3 id="bankSectionHeader" onclick="toggleBankSection()" style="cursor: pointer; display: flex; align-items: center;">
+				<span id="bankToggleIcon" style="margin-right: 10px; transition: transform 0.3s ease;">▼</span>
+				Bank Accounts
+			</h3>
+			<button class="add-transaction-btn" onclick="openBankModal()">
+				+ Add Bank Account
+			</button>
+		</div>
+		<div id="bankSection" class="bank-section">
+			<div class="bank-list" id="bankList"></div>
+		</div>
+	</div>
+
+	<!-- Bank Management Modal -->
+	<div id="bankModal" class="modal">
+		<div class="modal-content">
+			<span class="close" onclick="closeBankModal()">&times;</span>
+			<h2 id="bankModalTitle">Add Bank Account</h2>
+			<form id="bankForm">
+				<div class="form-group">
+					<label for="bankName">Bank Name:</label>
+					<input type="text" id="bankName" required placeholder="e.g., Chase Savings, Wells Fargo Checking">
+				</div>
+				<div class="form-group">
+					<label for="bankBalance">Current Balance:</label>
+					<input type="number" id="bankBalance" step="0.01" required placeholder="Enter current balance">
+				</div>
+				<div class="form-group">
+					<label for="bankInterestRate">Annual Interest Rate (%):</label>
+					<input type="number" id="bankInterestRate" step="0.001" min="0" max="100" required placeholder="e.g., 3.5 for 3.5%">
+					<small>Enter the annual percentage rate (e.g., 3.5 for 3.5%)</small>
+				</div>
+				<div class="form-group">
+					<label for="bankInterestType">Interest Type:</label>
+					<select id="bankInterestType" required>
+						<option value="compound">Compound Interest</option>
+						<option value="simple">Simple Interest</option>
+					</select>
+					<small>Compound interest is more common for savings accounts</small>
+				</div>
+				<div class="modal-buttons">
+					<button type="button" class="btn btn-secondary" onclick="closeBankModal()">Cancel</button>
+					<button type="submit" class="btn btn-primary" id="bankSubmitBtn">Add Bank Account</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
 
     <script src="financial_dashboard.js"></script>
 </body>
