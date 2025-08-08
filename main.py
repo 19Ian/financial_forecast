@@ -43,12 +43,13 @@ def get_hardcoded_costs():
 	
 	# Monthly costs: {name: (amount, day_of_month)}
 	monthly_costs = {
-		'gas': (-120, 1),
-		'food':(-15, 1),
-		'dates':(-50, 1),
-		'insurance': (-90, 1),
+		# 'gas': (-120, 1),
+		# 'food':(-15, 1),
+		# 'dates':(-50, 1),
+		# 'insurance': (-90, 1),
+		# 'social': (-15, 1),
 		# 'interest':(2, 1),
-		'work_for_dad':(90, 1) # 2 hrs a week
+		# 'work_for_dad':(90, 1) # 2 hrs a week
 	}
 	
 	# Daily costs: {name: amount}
@@ -57,15 +58,15 @@ def get_hardcoded_costs():
 	
 	# Special events: {name: (amount, datetime_object)}
 	special_events = {
-		'christmas_shopping': (-40, datetime(2025, 12, 15)),
-		'gifts': (-40, datetime(2026, 1, 10)),
-		'club_fees': (-100, datetime(2025, 9, 1)),
-		'carnegie': (-3200, datetime(2026, 5, 1)),
-		'world_cup': (-1500, datetime(2026, 6, 15)),
-		'tuition': (-4000, datetime(2026, 1, 15)), # probably more like $3200 but not sure yet
-		'tithe': (-500, datetime(2025, 9, 1)),
-		'paycheck': (1000, datetime(2025, 12, 26)),
-		'paycheck2': (1000, datetime(2026, 1, 16))
+		# 'christmas_shopping': (-40, datetime(2025, 12, 15)),
+		# 'gifts': (-40, datetime(2026, 1, 10)),
+		# 'club_fees': (-100, datetime(2025, 9, 1)),
+		# 'carnegie': (-3200, datetime(2026, 5, 1)),
+		# 'world_cup': (-1500, datetime(2026, 6, 15)),
+		# 'tuition': (-4000, datetime(2026, 1, 15)), # probably more like $3200 but not sure yet
+		# 'tithe': (-500, datetime(2025, 9, 1)),
+		# 'paycheck': (1000, datetime(2025, 12, 26)),
+		# 'paycheck2': (1000, datetime(2026, 1, 16))
 	}
 
 	banks = [
@@ -165,6 +166,15 @@ def run_cost_simulation(monthly_costs, daily_costs, special_events, target_year,
 	print(colored_final)
 
 
+def load_existing_budget_data():
+    """Load existing budget data from JSON if it exists"""
+    try:
+        with open('financial_data.json', 'r') as f:
+            existing_data = json.load(f)
+            return existing_data.get('budget', [])
+    except (FileNotFoundError, json.JSONDecodeError, KeyError):
+        return []
+
 def run_cost_simulation_for_web(monthly_costs, daily_costs, special_events, target_year, banks, starting_bank_balance):
     """Modified simulation that returns data for web visualization"""
     current_date = datetime.now().date()
@@ -178,7 +188,7 @@ def run_cost_simulation_for_web(monthly_costs, daily_costs, special_events, targ
     
     print(f"=== COST SIMULATION FROM {current_date} TO {end_date} ===\n")
     
-    while ((current_date <= end_date) and (total_money > 0)):
+    while ((current_date <= end_date) and (current_date.month != 7)):
         day_costs = []
 
         if(current_date.day == 1):
@@ -239,6 +249,9 @@ def run_cost_simulation_for_web(monthly_costs, daily_costs, special_events, targ
         
         current_date += timedelta(days=1)
     
+    # Load existing budget data to preserve user changes
+    existing_budget = load_existing_budget_data()
+    
     # Prepare data for export
     export_data = {
         "metadata": {
@@ -250,7 +263,8 @@ def run_cost_simulation_for_web(monthly_costs, daily_costs, special_events, targ
         },
         "balance_data": balance_data,
         "transactions": transactions,
-        "bank_data": bank_data
+        "bank_data": bank_data,
+        "budget": existing_budget  # Preserve existing budget data
     }
     
     # Export to JSON
@@ -258,12 +272,14 @@ def run_cost_simulation_for_web(monthly_costs, daily_costs, special_events, targ
         json.dump(export_data, f, indent=2)
     
     print(f"\n=== DATA EXPORTED TO financial_data.json ===")
+    print(f"=== BUDGET DATA PRESERVED: {len(existing_budget)} items ===")
     print(f"=== SIMULATION COMPLETE ===")
     final_total_text = f"Final Total: ${total_money:.2f}"
     colored_final = color_text(final_total_text, total_money >= 0)
     print(colored_final)
     
     return export_data
+
 
 def main():
 	monthly_costs, daily_costs, special_events, banks, starting_bank_balance = get_hardcoded_costs()
