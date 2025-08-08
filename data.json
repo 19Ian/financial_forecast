@@ -1,0 +1,14 @@
+{
+	"events": {
+		"tuition": {
+			"day": 1,
+			"month": 2,
+			"year": 2026
+		},
+		"world-cup": {
+			"day": 3,
+			"month": 6,
+			"year":2026
+		}
+	}
+}

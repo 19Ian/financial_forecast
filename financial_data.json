@@ -1,0 +1,767 @@
+{
+  "metadata": {
+    "start_date": "2025-08-07",
+    "end_date": "2026-12-31",
+    "starting_balance": 8000,
+    "final_balance": -1134.606999271891,
+    "banks": [
+      {
+        "name": "BOK",
+        "starting_amount": 5000,
+        "interest_rate": 0.001
+      },
+      {
+        "name": "CO",
+        "starting_amount": 3000,
+        "interest_rate": 0.036
+      }
+    ]
+  },
+  "balance_data": [
+    {
+      "date": "2025-08-07",
+      "balance": 8000
+    },
+    {
+      "date": "2025-09-01",
+      "balance": 7224.416666666667
+    },
+    {
+      "date": "2025-10-01",
+      "balance": 7048.860368055556
+    },
+    {
+      "date": "2025-11-01",
+      "balance": 6873.331185169561
+    },
+    {
+      "date": "2025-12-01",
+      "balance": 6697.8291992545755
+    },
+    {
+      "date": "2025-12-15",
+      "balance": 6657.8291992545755
+    },
+    {
+      "date": "2025-12-26",
+      "balance": 7657.8291992545755
+    },
+    {
+      "date": "2026-01-01",
+      "balance": 7482.354491800223
+    },
+    {
+      "date": "2026-01-10",
+      "balance": 7442.354491800223
+    },
+    {
+      "date": "2026-01-15",
+      "balance": 3442.3544918002226
+    },
+    {
+      "date": "2026-01-16",
+      "balance": 4442.354491800223
+    },
+    {
+      "date": "2026-02-01",
+      "balance": 4266.907144540585
+    },
+    {
+      "date": "2026-03-01",
+      "balance": 4091.487239454941
+    },
+    {
+      "date": "2026-04-01",
+      "balance": 3916.094858768496
+    },
+    {
+      "date": "2026-05-01",
+      "balance": 540.7300849531252
+    },
+    {
+      "date": "2026-06-01",
+      "balance": 365.393000728109
+    },
+    {
+      "date": "2026-06-15",
+      "balance": -1134.606999271891
+    }
+  ],
+  "transactions": [
+    {
+      "date": "2025-09-01",
+      "name": "BOK Interest",
+      "amount": 0.4166666666666667,
+      "balance": 8000.416666666667,
+      "type": "income"
+    },
+    {
+      "date": "2025-09-01",
+      "name": "CO Interest",
+      "amount": 8.999999999999998,
+      "balance": 8009.416666666667,
+      "type": "income"
+    },
+    {
+      "date": "2025-09-01",
+      "name": "gas",
+      "amount": -120,
+      "balance": 7889.416666666667,
+      "type": "expense"
+    },
+    {
+      "date": "2025-09-01",
+      "name": "food",
+      "amount": -15,
+      "balance": 7874.416666666667,
+      "type": "expense"
+    },
+    {
+      "date": "2025-09-01",
+      "name": "dates",
+      "amount": -50,
+      "balance": 7824.416666666667,
+      "type": "expense"
+    },
+    {
+      "date": "2025-09-01",
+      "name": "insurance",
+      "amount": -90,
+      "balance": 7734.416666666667,
+      "type": "expense"
+    },
+    {
+      "date": "2025-09-01",
+      "name": "work_for_dad",
+      "amount": 90,
+      "balance": 7824.416666666667,
+      "type": "income"
+    },
+    {
+      "date": "2025-09-01",
+      "name": "club_fees",
+      "amount": -100,
+      "balance": 7724.416666666667,
+      "type": "expense"
+    },
+    {
+      "date": "2025-09-01",
+      "name": "tithe",
+      "amount": -500,
+      "balance": 7224.416666666667,
+      "type": "expense"
+    },
+    {
+      "date": "2025-10-01",
+      "name": "BOK Interest",
+      "amount": 0.4167013888888889,
+      "balance": 7224.833368055556,
+      "type": "income"
+    },
+    {
+      "date": "2025-10-01",
+      "name": "CO Interest",
+      "amount": 9.027,
+      "balance": 7233.860368055556,
+      "type": "income"
+    },
+    {
+      "date": "2025-10-01",
+      "name": "gas",
+      "amount": -120,
+      "balance": 7113.860368055556,
+      "type": "expense"
+    },
+    {
+      "date": "2025-10-01",
+      "name": "food",
+      "amount": -15,
+      "balance": 7098.860368055556,
+      "type": "expense"
+    },
+    {
+      "date": "2025-10-01",
+      "name": "dates",
+      "amount": -50,
+      "balance": 7048.860368055556,
+      "type": "expense"
+    },
+    {
+      "date": "2025-10-01",
+      "name": "insurance",
+      "amount": -90,
+      "balance": 6958.860368055556,
+      "type": "expense"
+    },
+    {
+      "date": "2025-10-01",
+      "name": "work_for_dad",
+      "amount": 90,
+      "balance": 7048.860368055556,
+      "type": "income"
+    },
+    {
+      "date": "2025-11-01",
+      "name": "BOK Interest",
+      "amount": 0.4167361140046297,
+      "balance": 7049.2771041695605,
+      "type": "income"
+    },
+    {
+      "date": "2025-11-01",
+      "name": "CO Interest",
+      "amount": 9.054080999999998,
+      "balance": 7058.331185169561,
+      "type": "income"
+    },
+    {
+      "date": "2025-11-01",
+      "name": "gas",
+      "amount": -120,
+      "balance": 6938.331185169561,
+      "type": "expense"
+    },
+    {
+      "date": "2025-11-01",
+      "name": "food",
+      "amount": -15,
+      "balance": 6923.331185169561,
+      "type": "expense"
+    },
+    {
+      "date": "2025-11-01",
+      "name": "dates",
+      "amount": -50,
+      "balance": 6873.331185169561,
+      "type": "expense"
+    },
+    {
+      "date": "2025-11-01",
+      "name": "insurance",
+      "amount": -90,
+      "balance": 6783.331185169561,
+      "type": "expense"
+    },
+    {
+      "date": "2025-11-01",
+      "name": "work_for_dad",
+      "amount": 90,
+      "balance": 6873.331185169561,
+      "type": "income"
+    },
+    {
+      "date": "2025-12-01",
+      "name": "BOK Interest",
+      "amount": 0.41677084201413006,
+      "balance": 6873.747956011575,
+      "type": "income"
+    },
+    {
+      "date": "2025-12-01",
+      "name": "CO Interest",
+      "amount": 9.081243243000001,
+      "balance": 6882.8291992545755,
+      "type": "income"
+    },
+    {
+      "date": "2025-12-01",
+      "name": "gas",
+      "amount": -120,
+      "balance": 6762.8291992545755,
+      "type": "expense"
+    },
+    {
+      "date": "2025-12-01",
+      "name": "food",
+      "amount": -15,
+      "balance": 6747.8291992545755,
+      "type": "expense"
+    },
+    {
+      "date": "2025-12-01",
+      "name": "dates",
+      "amount": -50,
+      "balance": 6697.8291992545755,
+      "type": "expense"
+    },
+    {
+      "date": "2025-12-01",
+      "name": "insurance",
+      "amount": -90,
+      "balance": 6607.8291992545755,
+      "type": "expense"
+    },
+    {
+      "date": "2025-12-01",
+      "name": "work_for_dad",
+      "amount": 90,
+      "balance": 6697.8291992545755,
+      "type": "income"
+    },
+    {
+      "date": "2025-12-15",
+      "name": "christmas_shopping",
+      "amount": -40,
+      "balance": 6657.8291992545755,
+      "type": "expense"
+    },
+    {
+      "date": "2025-12-26",
+      "name": "paycheck",
+      "amount": 1000,
+      "balance": 7657.8291992545755,
+      "type": "income"
+    },
+    {
+      "date": "2026-01-01",
+      "name": "BOK Interest",
+      "amount": 0.41680557291763126,
+      "balance": 7658.246004827493,
+      "type": "income"
+    },
+    {
+      "date": "2026-01-01",
+      "name": "CO Interest",
+      "amount": 9.108486972728999,
+      "balance": 7667.354491800223,
+      "type": "income"
+    },
+    {
+      "date": "2026-01-01",
+      "name": "gas",
+      "amount": -120,
+      "balance": 7547.354491800223,
+      "type": "expense"
+    },
+    {
+      "date": "2026-01-01",
+      "name": "food",
+      "amount": -15,
+      "balance": 7532.354491800223,
+      "type": "expense"
+    },
+    {
+      "date": "2026-01-01",
+      "name": "dates",
+      "amount": -50,
+      "balance": 7482.354491800223,
+      "type": "expense"
+    },
+    {
+      "date": "2026-01-01",
+      "name": "insurance",
+      "amount": -90,
+      "balance": 7392.354491800223,
+      "type": "expense"
+    },
+    {
+      "date": "2026-01-01",
+      "name": "work_for_dad",
+      "amount": 90,
+      "balance": 7482.354491800223,
+      "type": "income"
+    },
+    {
+      "date": "2026-01-10",
+      "name": "gifts",
+      "amount": -40,
+      "balance": 7442.354491800223,
+      "type": "expense"
+    },
+    {
+      "date": "2026-01-15",
+      "name": "tuition",
+      "amount": -4000,
+      "balance": 3442.3544918002226,
+      "type": "expense"
+    },
+    {
+      "date": "2026-01-16",
+      "name": "paycheck2",
+      "amount": 1000,
+      "balance": 4442.354491800223,
+      "type": "income"
+    },
+    {
+      "date": "2026-02-01",
+      "name": "BOK Interest",
+      "amount": 0.41684030671537436,
+      "balance": 4442.771332106938,
+      "type": "income"
+    },
+    {
+      "date": "2026-02-01",
+      "name": "CO Interest",
+      "amount": 9.135812433647187,
+      "balance": 4451.907144540585,
+      "type": "income"
+    },
+    {
+      "date": "2026-02-01",
+      "name": "gas",
+      "amount": -120,
+      "balance": 4331.907144540585,
+      "type": "expense"
+    },
+    {
+      "date": "2026-02-01",
+      "name": "food",
+      "amount": -15,
+      "balance": 4316.907144540585,
+      "type": "expense"
+    },
+    {
+      "date": "2026-02-01",
+      "name": "dates",
+      "amount": -50,
+      "balance": 4266.907144540585,
+      "type": "expense"
+    },
+    {
+      "date": "2026-02-01",
+      "name": "insurance",
+      "amount": -90,
+      "balance": 4176.907144540585,
+      "type": "expense"
+    },
+    {
+      "date": "2026-02-01",
+      "name": "work_for_dad",
+      "amount": 90,
+      "balance": 4266.907144540585,
+      "type": "income"
+    },
+    {
+      "date": "2026-03-01",
+      "name": "BOK Interest",
+      "amount": 0.4168750434076007,
+      "balance": 4267.324019583993,
+      "type": "income"
+    },
+    {
+      "date": "2026-03-01",
+      "name": "CO Interest",
+      "amount": 9.163219870948128,
+      "balance": 4276.487239454941,
+      "type": "income"
+    },
+    {
+      "date": "2026-03-01",
+      "name": "gas",
+      "amount": -120,
+      "balance": 4156.487239454941,
+      "type": "expense"
+    },
+    {
+      "date": "2026-03-01",
+      "name": "food",
+      "amount": -15,
+      "balance": 4141.487239454941,
+      "type": "expense"
+    },
+    {
+      "date": "2026-03-01",
+      "name": "dates",
+      "amount": -50,
+      "balance": 4091.487239454941,
+      "type": "expense"
+    },
+    {
+      "date": "2026-03-01",
+      "name": "insurance",
+      "amount": -90,
+      "balance": 4001.487239454941,
+      "type": "expense"
+    },
+    {
+      "date": "2026-03-01",
+      "name": "work_for_dad",
+      "amount": 90,
+      "balance": 4091.487239454941,
+      "type": "income"
+    },
+    {
+      "date": "2026-04-01",
+      "name": "BOK Interest",
+      "amount": 0.41690978299455134,
+      "balance": 4091.9041492379356,
+      "type": "income"
+    },
+    {
+      "date": "2026-04-01",
+      "name": "CO Interest",
+      "amount": 9.190709530560973,
+      "balance": 4101.094858768496,
+      "type": "income"
+    },
+    {
+      "date": "2026-04-01",
+      "name": "gas",
+      "amount": -120,
+      "balance": 3981.094858768496,
+      "type": "expense"
+    },
+    {
+      "date": "2026-04-01",
+      "name": "food",
+      "amount": -15,
+      "balance": 3966.094858768496,
+      "type": "expense"
+    },
+    {
+      "date": "2026-04-01",
+      "name": "dates",
+      "amount": -50,
+      "balance": 3916.094858768496,
+      "type": "expense"
+    },
+    {
+      "date": "2026-04-01",
+      "name": "insurance",
+      "amount": -90,
+      "balance": 3826.094858768496,
+      "type": "expense"
+    },
+    {
+      "date": "2026-04-01",
+      "name": "work_for_dad",
+      "amount": 90,
+      "balance": 3916.094858768496,
+      "type": "income"
+    },
+    {
+      "date": "2026-05-01",
+      "name": "BOK Interest",
+      "amount": 0.4169445254764675,
+      "balance": 3916.5118032939727,
+      "type": "income"
+    },
+    {
+      "date": "2026-05-01",
+      "name": "CO Interest",
+      "amount": 9.218281659152655,
+      "balance": 3925.7300849531252,
+      "type": "income"
+    },
+    {
+      "date": "2026-05-01",
+      "name": "gas",
+      "amount": -120,
+      "balance": 3805.7300849531252,
+      "type": "expense"
+    },
+    {
+      "date": "2026-05-01",
+      "name": "food",
+      "amount": -15,
+      "balance": 3790.7300849531252,
+      "type": "expense"
+    },
+    {
+      "date": "2026-05-01",
+      "name": "dates",
+      "amount": -50,
+      "balance": 3740.7300849531252,
+      "type": "expense"
+    },
+    {
+      "date": "2026-05-01",
+      "name": "insurance",
+      "amount": -90,
+      "balance": 3650.7300849531252,
+      "type": "expense"
+    },
+    {
+      "date": "2026-05-01",
+      "name": "work_for_dad",
+      "amount": 90,
+      "balance": 3740.7300849531252,
+      "type": "income"
+    },
+    {
+      "date": "2026-05-01",
+      "name": "carnegie",
+      "amount": -3200,
+      "balance": 540.7300849531252,
+      "type": "expense"
+    },
+    {
+      "date": "2026-06-01",
+      "name": "BOK Interest",
+      "amount": 0.4169792708535905,
+      "balance": 541.1470642239789,
+      "type": "income"
+    },
+    {
+      "date": "2026-06-01",
+      "name": "CO Interest",
+      "amount": 9.245936504130112,
+      "balance": 550.393000728109,
+      "type": "income"
+    },
+    {
+      "date": "2026-06-01",
+      "name": "gas",
+      "amount": -120,
+      "balance": 430.393000728109,
+      "type": "expense"
+    },
+    {
+      "date": "2026-06-01",
+      "name": "food",
+      "amount": -15,
+      "balance": 415.393000728109,
+      "type": "expense"
+    },
+    {
+      "date": "2026-06-01",
+      "name": "dates",
+      "amount": -50,
+      "balance": 365.393000728109,
+      "type": "expense"
+    },
+    {
+      "date": "2026-06-01",
+      "name": "insurance",
+      "amount": -90,
+      "balance": 275.393000728109,
+      "type": "expense"
+    },
+    {
+      "date": "2026-06-01",
+      "name": "work_for_dad",
+      "amount": 90,
+      "balance": 365.393000728109,
+      "type": "income"
+    },
+    {
+      "date": "2026-06-15",
+      "name": "world_cup",
+      "amount": -1500,
+      "balance": -1134.606999271891,
+      "type": "expense"
+    }
+  ],
+  "bank_data": [
+    {
+      "date": "2025-09-01",
+      "bank": "BOK",
+      "balance": 5000.416666666667,
+      "interest_rate": 0.001
+    },
+    {
+      "date": "2025-09-01",
+      "bank": "CO",
+      "balance": 3009.0,
+      "interest_rate": 0.036
+    },
+    {
+      "date": "2025-10-01",
+      "bank": "BOK",
+      "balance": 5000.833368055556,
+      "interest_rate": 0.001
+    },
+    {
+      "date": "2025-10-01",
+      "bank": "CO",
+      "balance": 3018.027,
+      "interest_rate": 0.036
+    },
+    {
+      "date": "2025-11-01",
+      "bank": "BOK",
+      "balance": 5001.2501041695605,
+      "interest_rate": 0.001
+    },
+    {
+      "date": "2025-11-01",
+      "bank": "CO",
+      "balance": 3027.0810810000003,
+      "interest_rate": 0.036
+    },
+    {
+      "date": "2025-12-01",
+      "bank": "BOK",
+      "balance": 5001.666875011575,
+      "interest_rate": 0.001
+    },
+    {
+      "date": "2025-12-01",
+      "bank": "CO",
+      "balance": 3036.162324243,
+      "interest_rate": 0.036
+    },
+    {
+      "date": "2026-01-01",
+      "bank": "BOK",
+      "balance": 5002.083680584493,
+      "interest_rate": 0.001
+    },
+    {
+      "date": "2026-01-01",
+      "bank": "CO",
+      "balance": 3045.2708112157293,
+      "interest_rate": 0.036
+    },
+    {
+      "date": "2026-02-01",
+      "bank": "BOK",
+      "balance": 5002.500520891208,
+      "interest_rate": 0.001
+    },
+    {
+      "date": "2026-02-01",
+      "bank": "CO",
+      "balance": 3054.4066236493763,
+      "interest_rate": 0.036
+    },
+    {
+      "date": "2026-03-01",
+      "bank": "BOK",
+      "balance": 5002.917395934615,
+      "interest_rate": 0.001
+    },
+    {
+      "date": "2026-03-01",
+      "bank": "CO",
+      "balance": 3063.5698435203244,
+      "interest_rate": 0.036
+    },
+    {
+      "date": "2026-04-01",
+      "bank": "BOK",
+      "balance": 5003.33430571761,
+      "interest_rate": 0.001
+    },
+    {
+      "date": "2026-04-01",
+      "bank": "CO",
+      "balance": 3072.7605530508854,
+      "interest_rate": 0.036
+    },
+    {
+      "date": "2026-05-01",
+      "bank": "BOK",
+      "balance": 5003.751250243086,
+      "interest_rate": 0.001
+    },
+    {
+      "date": "2026-05-01",
+      "bank": "CO",
+      "balance": 3081.978834710038,
+      "interest_rate": 0.036
+    },
+    {
+      "date": "2026-06-01",
+      "bank": "BOK",
+      "balance": 5004.16822951394,
+      "interest_rate": 0.001
+    },
+    {
+      "date": "2026-06-01",
+      "bank": "CO",
+      "balance": 3091.224771214168,
+      "interest_rate": 0.036
+    }
+  ]
+}
