@@ -1830,49 +1830,129 @@ function analyzeOptimalBankAllocation() {
 // Update utility buttons to include bank-specific actions
 function addUtilityButtons() {
     const utilityHTML = `
-        <div class="utility-buttons" style="margin-top: 20px; text-align: center;">
-            <button class="btn btn-secondary" onclick="exportAllData()" style="margin: 0 5px;">
-                Export All Data
+        <div class="utility-buttons" style="margin-top: 20px; text-align: center; display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <!-- Export Dropdown -->
+            <div class="export-dropdown">
+                <button class="export-button" onclick="toggleExportPanel()" id="exportButton">
+                    📤 Export & Import
+                </button>
+                <div class="export-panel" id="exportPanel">
+                    <h4>Data Management</h4>
+                    <div class="export-section">
+                        <div class="export-section-title">Export Options</div>
+                        <div class="export-item" onclick="exportAllData(); closeExportPanel();">
+                            <span class="icon">💾</span>
+                            <div class="details">
+                                <div class="name">Export All Data</div>
+                                <div class="description">Complete budget and bank data</div>
+                            </div>
+                        </div>
+                        <div class="export-item" onclick="exportBudgetOnly(); closeExportPanel();">
+                            <span class="icon">📊</span>
+                            <div class="details">
+                                <div class="name">Export Budget Only</div>
+                                <div class="description">Budget items and categories</div>
+                            </div>
+                        </div>
+                        <div class="export-item" onclick="exportBankData(); closeExportPanel();">
+                            <span class="icon">🏦</span>
+                            <div class="details">
+                                <div class="name">Export Banks Only</div>
+                                <div class="description">Bank accounts and balances</div>
+                            </div>
+                        </div>
+                        <div class="export-item" onclick="exportForecasts(); closeExportPanel();">
+                            <span class="icon">📈</span>
+                            <div class="details">
+                                <div class="name">Export Forecasts</div>
+                                <div class="description">Financial projections (CSV)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="export-section">
+                        <div class="export-section-title">Import Options</div>
+                        <div class="export-item" onclick="importBudgetData(); closeExportPanel();">
+                            <span class="icon">📥</span>
+                            <div class="details">
+                                <div class="name">Import Data</div>
+                                <div class="description">Load saved budget/bank data</div>
+                            </div>
+                        </div>
+                        <div class="export-item" onclick="createBankBackup(); closeExportPanel();">
+                            <span class="icon">🔄</span>
+                            <div class="details">
+                                <div class="name">Create Backup</div>
+                                <div class="description">Save current state</div>
+                            </div>
+                        </div>
+                        <div class="export-item" onclick="restoreBankBackup(); closeExportPanel();">
+                            <span class="icon">⏮️</span>
+                            <div class="details">
+                                <div class="name">Restore Backup</div>
+                                <div class="description">Load previous backup</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Analysis Dropdown -->
+            <div class="analysis-dropdown">
+                <button class="analysis-button" onclick="toggleAnalysisPanel()" id="analysisButton">
+                    📊 Analysis Tools
+                </button>
+                <div class="analysis-panel" id="analysisPanel">
+                    <h4 style="margin: 0 0 10px 0; padding: 15px 15px 0 15px; color: #ffffff; font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #333; padding-bottom: 10px;">Analysis Options</h4>
+                    <div class="analysis-item" onclick="analyzeBankPerformance(); closeAnalysisPanel();">
+                        <span class="icon">🏦</span>
+                        <div class="details">
+                            <div class="name">Bank Performance</div>
+                            <div class="description">Interest rates and earnings analysis</div>
+                        </div>
+                    </div>
+                    <div class="analysis-item" onclick="analyzeOptimalBankAllocation(); closeAnalysisPanel();">
+                        <span class="icon">⚖️</span>
+                        <div class="details">
+                            <div class="name">Optimize Allocation</div>
+                            <div class="description">Suggest better fund distribution</div>
+                        </div>
+                    </div>
+                    <div class="analysis-item" onclick="analyzeCashFlow(); closeAnalysisPanel();">
+                        <span class="icon">💰</span>
+                        <div class="details">
+                            <div class="name">Cash Flow Analysis</div>
+                            <div class="description">Income vs expenses breakdown</div>
+                        </div>
+                    </div>
+                    <div class="analysis-item" onclick="analyzeSpendingTrends(); closeAnalysisPanel();">
+                        <span class="icon">📈</span>
+                        <div class="details">
+                            <div class="name">Spending Trends</div>
+                            <div class="description">Category spending patterns</div>
+                        </div>
+                    </div>
+                    <div class="analysis-item" onclick="generateFinancialReport(); closeAnalysisPanel();">
+                        <span class="icon">📋</span>
+                        <div class="details">
+                            <div class="name">Financial Report</div>
+                            <div class="description">Comprehensive overview</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Individual Action Buttons -->
+            <button class="btn btn-secondary" onclick="debugStorage()" style="margin: 0 5px; font-size: 13px; padding: 8px 16px;">
+                🐛 Debug
             </button>
-            <button class="btn btn-secondary" onclick="exportBankData()" style="margin: 0 5px;">
-                Export Banks Only
-            </button>
-            <button class="btn btn-secondary" onclick="importBudgetData()" style="margin: 0 5px;">
-                Import Data
-            </button>
-            <button class="btn btn-secondary" onclick="analyzeBankPerformance()" style="margin: 0 5px;">
-                Analyze Banks
-            </button>
-            <button class="btn btn-secondary" onclick="analyzeOptimalBankAllocation()" style="margin: 0 5px;">
-                Optimize Allocation
-            </button>
-            <button class="btn btn-secondary" onclick="debugStorage()" style="margin: 0 5px;">
-                Debug Storage
-            </button>
-            <button class="btn btn-secondary" onclick="resetToOriginal()" style="margin: 0 5px;">
-                Reset All Data
-            </button>
-        </div>
-        <div class="quick-actions" style="margin-top: 15px; text-align: center;">
-            <h4 style="color: #b0b0b0; margin-bottom: 10px;">Quick Add:</h4>
-            <button class="btn btn-primary" onclick="quickAddSavingsAccount()" style="margin: 0 5px;">
-                + High-Yield Savings
-            </button>
-            <button class="btn btn-primary" onclick="quickAddCheckingAccount()" style="margin: 0 5px;">
-                + Checking Account
-            </button>
-            <button class="btn btn-primary" onclick="quickAddSalaryToBestBank()" style="margin: 0 5px;">
-                + Salary (Best Rate)
-            </button>
-            <button class="btn btn-primary" onclick="quickAddRentFromLargestBank()" style="margin: 0 5px;">
-                + Rent (Largest Balance)
+            <button class="btn btn-secondary" onclick="resetToOriginal()" style="margin: 0 5px; font-size: 13px; padding: 8px 16px;">
+                🔄 Reset All
             </button>
         </div>
         <div style="margin-top: 10px; text-align: center; color: #888; font-size: 0.8em;">
             Keyboard shortcuts: Ctrl+B (New Budget), Ctrl+Shift+B (New Bank), Ctrl+T (Toggle Banks), Esc (Close Modal)
         </div>
     `;
-    
     const lastContainer = document.querySelector('.chart-container:last-child');
     if (lastContainer && !lastContainer.querySelector('.utility-buttons')) {
         lastContainer.insertAdjacentHTML('beforeend', utilityHTML);
@@ -2457,8 +2537,7 @@ function quickAddSalaryToBestBank() {
         return;
     }
     
-    // Find bank with highest interest rate
-    const bestBank = bankData.reduce((best, bank) => 
+    const bestBank = bankData.reduce((best, bank) =>
         bank.interestRate > best.interestRate ? bank : best
     );
     
@@ -2466,10 +2545,8 @@ function quickAddSalaryToBestBank() {
     document.getElementById('budgetAmount').value = '3000';
     document.getElementById('budgetType').value = 'income';
     document.getElementById('budgetStartDate').value = new Date().toISOString().split('T')[0];
-    
     openBudgetModal();
     
-    // Wait for modal to open and populate bank selection
     setTimeout(() => {
         toggleBankSelection();
         document.getElementById('budgetLinkedBank').value = bestBank.id;
@@ -2482,8 +2559,7 @@ function quickAddRentFromLargestBank() {
         return;
     }
     
-    // Find bank with largest balance
-    const largestBank = bankData.reduce((largest, bank) => 
+    const largestBank = bankData.reduce((largest, bank) =>
         bank.balance > largest.balance ? bank : largest
     );
     
@@ -2491,7 +2567,6 @@ function quickAddRentFromLargestBank() {
     document.getElementById('budgetAmount').value = '1200';
     document.getElementById('budgetType').value = 'expense';
     document.getElementById('budgetStartDate').value = new Date().toISOString().split('T')[0];
-    
     openBudgetModal();
     
     setTimeout(() => {
@@ -2499,6 +2574,699 @@ function quickAddRentFromLargestBank() {
         document.getElementById('budgetLinkedBank').value = largestBank.id;
     }, 100);
 }
+
+// Quick Add Panel functionality
+function toggleQuickAddPanel() {
+    const panel = document.getElementById('quickAddPanel');
+    const button = document.getElementById('quickAddButton');
+    
+    if (panel.classList.contains('show')) {
+        closeQuickAddPanel();
+    } else {
+        openQuickAddPanel();
+    }
+}
+
+function openQuickAddPanel() {
+    const panel = document.getElementById('quickAddPanel');
+    const button = document.getElementById('quickAddButton');
+    
+    panel.classList.add('show');
+    button.classList.add('open');
+    
+    // Close panel when clicking outside
+    setTimeout(() => {
+        document.addEventListener('click', closeQuickAddOnOutsideClick);
+    }, 0);
+}
+
+function closeQuickAddPanel() {
+    const panel = document.getElementById('quickAddPanel');
+    const button = document.getElementById('quickAddButton');
+    
+    panel.classList.remove('show');
+    button.classList.remove('open');
+    
+    document.removeEventListener('click', closeQuickAddOnOutsideClick);
+}
+
+function closeQuickAddOnOutsideClick(event) {
+    const dropdown = document.querySelector('.quick-add-dropdown');
+    if (!dropdown.contains(event.target)) {
+        closeQuickAddPanel();
+    }
+}
+
+// Enhanced Quick Add functions
+function quickAddUtilities() {
+    document.getElementById('budgetName').value = 'Utilities';
+    document.getElementById('budgetAmount').value = '150';
+    document.getElementById('budgetType').value = 'expense';
+    document.getElementById('budgetStartDate').value = new Date().toISOString().split('T')[0];
+    openBudgetModal();
+    
+    setTimeout(() => {
+        toggleBankSelection();
+        if (bankData.length > 0) {
+            const largestBank = bankData.reduce((largest, bank) =>
+                bank.balance > largest.balance ? bank : largest
+            );
+            document.getElementById('budgetLinkedBank').value = largestBank.id;
+        }
+    }, 100);
+}
+
+function quickAddGroceries() {
+    document.getElementById('budgetName').value = 'Groceries';
+    document.getElementById('budgetAmount').value = '400';
+    document.getElementById('budgetType').value = 'expense';
+    document.getElementById('budgetStartDate').value = new Date().toISOString().split('T')[0];
+    openBudgetModal();
+    
+    setTimeout(() => {
+        toggleBankSelection();
+        if (bankData.length > 0) {
+            const largestBank = bankData.reduce((largest, bank) =>
+                bank.balance > largest.balance ? bank : largest
+            );
+            document.getElementById('budgetLinkedBank').value = largestBank.id;
+        }
+    }, 100);
+}
+
+function quickAddSubscriptions() {
+    document.getElementById('budgetName').value = 'Subscriptions';
+    document.getElementById('budgetAmount').value = '45';
+    document.getElementById('budgetType').value = 'expense';
+    document.getElementById('budgetStartDate').value = new Date().toISOString().split('T')[0];
+    openBudgetModal();
+    
+    setTimeout(() => {
+        toggleBankSelection();
+        if (bankData.length > 0) {
+            const largestBank = bankData.reduce((largest, bank) =>
+                bank.balance > largest.balance ? bank : largest
+            );
+            document.getElementById('budgetLinkedBank').value = largestBank.id;
+        }
+    }, 100);
+}
+
+function quickAddSavingsGoal() {
+    document.getElementById('budgetName').value = 'Emergency Fund';
+    document.getElementById('budgetAmount').value = '500';
+    document.getElementById('budgetType').value = 'expense';
+    document.getElementById('budgetStartDate').value = new Date().toISOString().split('T')[0];
+    
+    // Set end date to 1 year from now for savings goals
+    const endDate = new Date();
+    endDate.setFullYear(endDate.getFullYear() + 1);
+    document.getElementById('budgetEndDate').value = endDate.toISOString().split('T')[0];
+    
+    openBudgetModal();
+    
+    setTimeout(() => {
+        toggleBankSelection();
+        if (bankData.length > 0) {
+            const highestRateBank = bankData.reduce((best, bank) =>
+                bank.interestRate > best.interestRate ? bank : best
+            );
+            document.getElementById('budgetLinkedBank').value = highestRateBank.id;
+        }
+    }, 100);
+}
+
+
+function toggleExportPanel() {
+    const panel = document.getElementById('exportPanel');
+    const button = document.getElementById('exportButton');
+    
+    // Close analysis panel if open
+    closeAnalysisPanel();
+    
+    if (panel.classList.contains('show')) {
+        closeExportPanel();
+    } else {
+        openExportPanel();
+    }
+}
+
+function openExportPanel() {
+    const panel = document.getElementById('exportPanel');
+    const button = document.getElementById('exportButton');
+    panel.classList.add('show');
+    button.classList.add('open');
+    
+    // Close panel when clicking outside
+    setTimeout(() => {
+        document.addEventListener('click', closeExportOnOutsideClick);
+    }, 0);
+}
+
+function closeExportPanel() {
+    const panel = document.getElementById('exportPanel');
+    const button = document.getElementById('exportButton');
+    panel.classList.remove('show');
+    button.classList.remove('open');
+    document.removeEventListener('click', closeExportOnOutsideClick);
+}
+
+function closeExportOnOutsideClick(event) {
+    const dropdown = document.querySelector('.export-dropdown');
+    if (!dropdown.contains(event.target)) {
+        closeExportPanel();
+    }
+}
+
+function toggleAnalysisPanel() {
+    const panel = document.getElementById('analysisPanel');
+    const button = document.getElementById('analysisButton');
+    
+    // Close export panel if open
+    closeExportPanel();
+    
+    if (panel.classList.contains('show')) {
+        closeAnalysisPanel();
+    } else {
+        openAnalysisPanel();
+    }
+}
+
+function openAnalysisPanel() {
+    const panel = document.getElementById('analysisPanel');
+    const button = document.getElementById('analysisButton');
+    panel.classList.add('show');
+    button.classList.add('open');
+    
+    // Close panel when clicking outside
+    setTimeout(() => {
+        document.addEventListener('click', closeAnalysisOnOutsideClick);
+    }, 0);
+}
+
+function closeAnalysisPanel() {
+    const panel = document.getElementById('analysisPanel');
+    const button = document.getElementById('analysisButton');
+    if (panel) panel.classList.remove('show');
+    if (button) button.classList.remove('open');
+    document.removeEventListener('click', closeAnalysisOnOutsideClick);
+}
+
+function closeAnalysisOnOutsideClick(event) {
+    const dropdown = document.querySelector('.analysis-dropdown');
+    if (!dropdown.contains(event.target)) {
+        closeAnalysisPanel();
+    }
+}
+
+// Add missing export functions that are referenced in the dropdown
+function exportBudgetOnly() {
+    const exportData = {
+        budget: budgetData,
+        metadata: {
+            exportType: 'budget_only',
+            exportDate: new Date().toISOString(),
+            itemCount: budgetData.length
+        },
+        version: '1.0'
+    };
+    
+    const dataStr = JSON.stringify(exportData, null, 2);
+    const dataBlob = new Blob([dataStr], {type: 'application/json'});
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(dataBlob);
+    link.download = `budget_only_${new Date().toISOString().split('T')[0]}.json`;
+    link.click();
+    showNotification('Budget data exported successfully!', 'success');
+}
+
+function exportForecasts() {
+    if (budgetData.length === 0) {
+        showNotification('No budget data to generate forecasts', 'info');
+        return;
+    }
+    
+    const months = 12;
+    const forecastData = generateForecastData(months);
+    
+    // Create CSV content
+    let csvContent = 'Month,Projected Balance,Monthly Change,Interest Earnings\n';
+    
+    for (let i = 0; i < forecastData.labels.length; i++) {
+        csvContent += `${forecastData.labels[i]},${forecastData.balances[i]},${forecastData.monthlyChanges[i]},${forecastData.interestEarnings[i]}\n`;
+    }
+    
+    // Add bank balance history if available
+    if (forecastData.bankBalanceHistory && Object.keys(forecastData.bankBalanceHistory).length > 0) {
+        csvContent += '\n\nBank Balance History\n';
+        csvContent += 'Month,' + bankData.map(bank => bank.name).join(',') + '\n';
+        
+        for (let i = 0; i < forecastData.labels.length; i++) {
+            let row = forecastData.labels[i];
+            bankData.forEach(bank => {
+                const balance = forecastData.bankBalanceHistory[bank.id] ? forecastData.bankBalanceHistory[bank.id][i] || 0 : 0;
+                row += ',' + balance;
+            });
+            csvContent += row + '\n';
+        }
+    }
+    
+    const csvBlob = new Blob([csvContent], { type: 'text/csv' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(csvBlob);
+    link.download = `financial_forecast_${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+    showNotification('Forecast data exported to CSV!', 'success');
+}
+
+// Add missing analysis functions
+function analyzeCashFlow() {
+    if (budgetData.length === 0) {
+        showNotification('No budget data to analyze', 'info');
+        return;
+    }
+    
+    const today = new Date().toISOString().split('T')[0];
+    const activeBudgetData = budgetData.filter(budget => {
+        return !budget.endDate || budget.endDate >= today;
+    });
+    
+    const analysis = {
+        totalIncome: activeBudgetData.filter(b => b.type === 'income').reduce((sum, b) => sum + Math.abs(b.amount), 0),
+        totalExpenses: activeBudgetData.filter(b => b.type === 'expense').reduce((sum, b) => sum + Math.abs(b.amount), 0),
+        incomeCategories: {},
+        expenseCategories: {},
+        bankLinkedIncome: 0,
+        bankLinkedExpenses: 0,
+        autoGeneratedIncome: 0
+    };
+    
+    // Categorize income and expenses
+    activeBudgetData.forEach(budget => {
+        if (budget.type === 'income') {
+            if (budget.isAutoGenerated) {
+                analysis.autoGeneratedIncome += Math.abs(budget.amount);
+            } else if (budget.linkedBankId) {
+                analysis.bankLinkedIncome += Math.abs(budget.amount);
+            }
+            analysis.incomeCategories[budget.name] = Math.abs(budget.amount);
+        } else {
+            if (budget.linkedBankId) {
+                analysis.bankLinkedExpenses += Math.abs(budget.amount);
+            }
+            analysis.expenseCategories[budget.name] = Math.abs(budget.amount);
+        }
+    });
+    
+    analysis.netCashFlow = analysis.totalIncome - analysis.totalExpenses;
+    analysis.savingsRate = analysis.totalIncome > 0 ? (analysis.netCashFlow / analysis.totalIncome) * 100 : 0;
+    
+    // Display analysis
+    const analysisHTML = `
+        <div class="cashflow-analysis" style="margin-top: 15px; padding: 15px; background: #2a2a2a; border-radius: 8px; border-left: 3px solid #2196f3;">
+            <h4 style="margin: 0 0 15px 0; color: #2196f3;">💰 Cash Flow Analysis</h4>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px;">
+                <div style="text-align: center; padding: 10px; background: #333; border-radius: 4px;">
+                    <h5 style="margin: 0; color: #4caf50;">Total Income</h5>
+                    <div style="font-size: 1.2em; color: #4caf50; font-weight: bold;">${formatCurrency(analysis.totalIncome)}</div>
+                </div>
+                <div style="text-align: center; padding: 10px; background: #333; border-radius: 4px;">
+                    <h5 style="margin: 0; color: #f44336;">Total Expenses</h5>
+                    <div style="font-size: 1.2em; color: #f44336; font-weight: bold;">${formatCurrency(analysis.totalExpenses)}</div>
+                </div>
+                <div style="text-align: center; padding: 10px; background: #333; border-radius: 4px;">
+                    <h5 style="margin: 0; color: ${analysis.netCashFlow >= 0 ? '#4caf50' : '#f44336'};">Net Cash Flow</h5>
+                    <div style="font-size: 1.2em; color: ${analysis.netCashFlow >= 0 ? '#4caf50' : '#f44336'}; font-weight: bold;">${formatCurrency(analysis.netCashFlow)}</div>
+                </div>
+                <div style="text-align: center; padding: 10px; background: #333; border-radius: 4px;">
+                    <h5 style="margin: 0; color: #ff9800;">Savings Rate</h5>
+                    <div style="font-size: 1.2em; color: #ff9800; font-weight: bold;">${analysis.savingsRate.toFixed(1)}%</div>
+                </div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div>
+                    <h5 style="color: #4caf50; margin: 0 0 10px 0;">Income Sources</h5>
+                    <ul style="margin: 0; padding-left: 15px; color: #e0e0e0; font-size: 0.9em;">
+                        <li>Bank Interest: ${formatCurrency(analysis.autoGeneratedIncome)}</li>
+                        <li>Bank-Linked: ${formatCurrency(analysis.bankLinkedIncome)}</li>
+                        ${Object.entries(analysis.incomeCategories).filter(([name]) => !name.includes('Interest')).map(([name, amount]) => 
+                            `<li>${name}: ${formatCurrency(amount)}</li>`
+                        ).join('')}
+                    </ul>
+                </div>
+                <div>
+                    <h5 style="color: #f44336; margin: 0 0 10px 0;">Expense Categories</h5>
+                    <ul style="margin: 0; padding-left: 15px; color: #e0e0e0; font-size: 0.9em;">
+                        <li>Bank-Linked: ${formatCurrency(analysis.bankLinkedExpenses)}</li>
+                        ${Object.entries(analysis.expenseCategories).map(([name, amount]) => 
+                            `<li>${name}: ${formatCurrency(amount)}</li>`
+                        ).join('')}
+                    </ul>
+                </div>
+            </div>
+            
+            ${analysis.savingsRate < 10 ? `
+                <div style="margin-top: 15px; padding: 10px; background: rgba(255, 152, 0, 0.1); border-left: 3px solid #ff9800; border-radius: 4px;">
+                    <strong style="color: #ff9800;">💡 Recommendation:</strong>
+                    <span style="color: #e0e0e0;"> Consider increasing your savings rate. Financial experts recommend saving at least 10-20% of income.</span>
+                </div>
+            ` : ''}
+        </div>
+    `;
+    
+    const budgetList = document.getElementById('budgetList');
+    if (budgetList) {
+        const existingAnalysis = budgetList.querySelector('.cashflow-analysis');
+        if (existingAnalysis) {
+            existingAnalysis.remove();
+        }
+        budgetList.insertAdjacentHTML('beforeend', analysisHTML);
+    }
+    
+    showNotification('Cash flow analysis complete', 'success');
+}
+
+function analyzeSpendingTrends() {
+    if (budgetData.length === 0) {
+        showNotification('No budget data to analyze', 'info');
+        return;
+    }
+    
+    const today = new Date().toISOString().split('T')[0];
+    const activeBudgetData = budgetData.filter(budget => {
+        return (!budget.endDate || budget.endDate >= today) && budget.type === 'expense';
+    });
+    
+    if (activeBudgetData.length === 0) {
+        showNotification('No expense data to analyze', 'info');
+        return;
+    }
+    
+    const totalExpenses = activeBudgetData.reduce((sum, budget) => sum + Math.abs(budget.amount), 0);
+    const categoryAnalysis = activeBudgetData.map(budget => ({
+        name: budget.name,
+        amount: Math.abs(budget.amount),
+        percentage: (Math.abs(budget.amount) / totalExpenses) * 100,
+        isLinkedToBank: !!budget.linkedBankId
+    })).sort((a, b) => b.amount - a.amount);
+    
+    const analysisHTML = `
+        <div class="spending-trends" style="margin-top: 15px; padding: 15px; background: #2a2a2a; border-radius: 8px; border-left: 3px solid #9c27b0;">
+            <h4 style="margin: 0 0 15px 0; color: #9c27b0;">📈 Spending Trends Analysis</h4>
+            
+            <div style="margin-bottom: 15px;">
+                <strong style="color: #fff;">Total Monthly Expenses: ${formatCurrency(totalExpenses)}</strong>
+            </div>
+            
+            <div style="max-height: 300px; overflow-y: auto;">
+                ${categoryAnalysis.map((category, index) => `
+                    <div style="margin-bottom: 10px; padding: 10px; background: #333; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+                        <div style="flex: 1;">
+                            <div style="color: #fff; font-weight: bold;">${category.name}</div>
+                            <div style="color: #888; font-size: 0.8em;">
+                                ${category.percentage.toFixed(1)}% of total expenses
+                                ${category.isLinkedToBank ? ' • Bank-linked' : ''}
+                            </div>
+                        </div>
+                        <div style="color: #f44336; font-weight: bold; font-size: 1.1em;">
+                            ${formatCurrency(category.amount)}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+            
+            <div style="margin-top: 15px; padding: 10px; background: #333; border-radius: 4px;">
+                <strong style="color: #9c27b0;">Key Insights:</strong>
+                <ul style="margin: 5px 0; padding-left: 20px; color: #e0e0e0; font-size: 0.9em;">
+                    <li>Largest expense: ${categoryAnalysis[0].name} (${categoryAnalysis[0].percentage.toFixed(1)}%)</li>
+                    <li>Bank-linked expenses: ${categoryAnalysis.filter(c => c.isLinkedToBank).length} of ${categoryAnalysis.length}</li>
+                    ${categoryAnalysis[0].percentage > 50 ? `<li style="color: #ff9800;">⚠️ One category dominates your spending</li>` : ''}
+                    ${categoryAnalysis.filter(c => c.percentage > 20).length > 3 ? `<li style="color: #ff9800;">💡 Consider consolidating similar expense categories</li>` : ''}
+                </ul>
+            </div>
+        </div>
+    `;
+    
+    const budgetList = document.getElementById('budgetList');
+    if (budgetList) {
+        const existingAnalysis = budgetList.querySelector('.spending-trends');
+        if (existingAnalysis) {
+            existingAnalysis.remove();
+        }
+        budgetList.insertAdjacentHTML('beforeend', analysisHTML);
+    }
+    
+    showNotification('Spending trends analysis complete', 'success');
+}
+
+function generateFinancialReport() {
+    if (budgetData.length === 0 && bankData.length === 0) {
+        showNotification('No financial data to generate report', 'info');
+        return;
+    }
+    
+    const today = new Date().toISOString().split('T')[0];
+    const activeBudgetData = budgetData.filter(budget => {
+        return !budget.endDate || budget.endDate >= today;
+    });
+    
+    // Calculate summary statistics
+    const totalIncome = activeBudgetData.filter(b => b.type === 'income').reduce((sum, b) => sum + Math.abs(b.amount), 0);
+    const totalExpenses = activeBudgetData.filter(b => b.type === 'expense').reduce((sum, b) => sum + Math.abs(b.amount), 0);
+    const netMonthly = totalIncome - totalExpenses;
+    const totalBankBalance = bankData.reduce((sum, bank) => sum + bank.balance, 0);
+    const totalMonthlyInterest = bankData.reduce((sum, bank) => {
+        return sum + calculateMonthlyInterest(bank.balance, bank.interestRate, bank.interestType);
+    }, 0);
+    
+    // Generate 12-month projection
+    const forecastData = generateForecastData(12);
+    const yearEndBalance = forecastData.balances[forecastData.balances.length - 1];
+    const totalInterestEarned = forecastData.interestEarnings.reduce((sum, interest) => sum + interest, 0);
+    
+    const reportData = {
+        generatedDate: new Date().toISOString(),
+        summary: {
+            totalBankBalance,
+            monthlyIncome: totalIncome,
+			monthlyExpenses: totalExpenses,
+            netMonthly,
+            savingsRate: totalIncome > 0 ? (netMonthly / totalIncome) * 100 : 0,
+            totalMonthlyInterest,
+            annualInterestProjection: totalMonthlyInterest * 12
+        },
+        bankAccounts: bankData.length,
+        budgetItems: activeBudgetData.length,
+        projections: {
+            yearEndBalance,
+            totalInterestEarned,
+            netGrowth: yearEndBalance - totalBankBalance
+        }
+    };
+    
+    // Create comprehensive report
+    const reportHTML = `
+        <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px;">
+            <div style="background: #1e1e1e; border-radius: 10px; padding: 30px; max-width: 800px; width: 100%; max-height: 80vh; overflow-y: auto; border: 1px solid #444;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 style="color: #fff; margin: 0;">📋 Financial Report</h2>
+                    <button onclick="this.closest('div').remove()" style="background: #666; color: white; border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-size: 18px;">&times;</button>
+                </div>
+                
+                <div style="margin-bottom: 20px; padding: 15px; background: #333; border-radius: 8px;">
+                    <h3 style="color: #4caf50; margin: 0 0 10px 0;">💰 Current Financial Position</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div style="text-align: center;">
+                            <div style="color: #b0b0b0; font-size: 0.9em;">Total Bank Balance</div>
+                            <div style="color: #4caf50; font-size: 1.3em; font-weight: bold;">${formatCurrency(reportData.summary.totalBankBalance)}</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="color: #b0b0b0; font-size: 0.9em;">Monthly Income</div>
+                            <div style="color: #4caf50; font-size: 1.3em; font-weight: bold;">${formatCurrency(reportData.summary.monthlyIncome)}</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="color: #b0b0b0; font-size: 0.9em;">Monthly Expenses</div>
+                            <div style="color: #f44336; font-size: 1.3em; font-weight: bold;">${formatCurrency(reportData.summary.monthlyExpenses)}</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="color: #b0b0b0; font-size: 0.9em;">Net Monthly</div>
+                            <div style="color: ${reportData.summary.netMonthly >= 0 ? '#4caf50' : '#f44336'}; font-size: 1.3em; font-weight: bold;">${formatCurrency(reportData.summary.netMonthly)}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 20px; padding: 15px; background: #333; border-radius: 8px;">
+                    <h3 style="color: #2196f3; margin: 0 0 10px 0;">📊 Key Metrics</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+                        <div style="text-align: center;">
+                            <div style="color: #b0b0b0; font-size: 0.9em;">Savings Rate</div>
+                            <div style="color: ${reportData.summary.savingsRate >= 10 ? '#4caf50' : '#ff9800'}; font-size: 1.2em; font-weight: bold;">${reportData.summary.savingsRate.toFixed(1)}%</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="color: #b0b0b0; font-size: 0.9em;">Bank Accounts</div>
+                            <div style="color: #2196f3; font-size: 1.2em; font-weight: bold;">${reportData.bankAccounts}</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="color: #b0b0b0; font-size: 0.9em;">Budget Items</div>
+                            <div style="color: #2196f3; font-size: 1.2em; font-weight: bold;">${reportData.budgetItems}</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="color: #b0b0b0; font-size: 0.9em;">Monthly Interest</div>
+                            <div style="color: #ff9800; font-size: 1.2em; font-weight: bold;">${formatCurrency(reportData.summary.totalMonthlyInterest)}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 20px; padding: 15px; background: #333; border-radius: 8px;">
+                    <h3 style="color: #ff9800; margin: 0 0 10px 0;">🔮 12-Month Projections</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div style="text-align: center;">
+                            <div style="color: #b0b0b0; font-size: 0.9em;">Projected Year-End Balance</div>
+                            <div style="color: ${reportData.projections.yearEndBalance >= reportData.summary.totalBankBalance ? '#4caf50' : '#f44336'}; font-size: 1.3em; font-weight: bold;">${formatCurrency(reportData.projections.yearEndBalance)}</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="color: #b0b0b0; font-size: 0.9em;">Total Interest Earned</div>
+                            <div style="color: #ff9800; font-size: 1.3em; font-weight: bold;">${formatCurrency(reportData.projections.totalInterestEarned)}</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="color: #b0b0b0; font-size: 0.9em;">Net Growth</div>
+                            <div style="color: ${reportData.projections.netGrowth >= 0 ? '#4caf50' : '#f44336'}; font-size: 1.3em; font-weight: bold;">${formatCurrency(reportData.projections.netGrowth)}</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="color: #b0b0b0; font-size: 0.9em;">Growth Rate</div>
+                            <div style="color: ${reportData.projections.netGrowth >= 0 ? '#4caf50' : '#f44336'}; font-size: 1.3em; font-weight: bold;">${((reportData.projections.netGrowth / reportData.summary.totalBankBalance) * 100).toFixed(1)}%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                ${bankData.length > 0 ? `
+                <div style="margin-bottom: 20px; padding: 15px; background: #333; border-radius: 8px;">
+                    <h3 style="color: #9c27b0; margin: 0 0 10px 0;">🏦 Bank Account Summary</h3>
+                    <div style="max-height: 200px; overflow-y: auto;">
+                        ${bankData.map(bank => {
+                            const monthlyInterest = calculateMonthlyInterest(bank.balance, bank.interestRate, bank.interestType);
+                            const annualInterest = monthlyInterest * 12;
+                            return `
+                                <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #444;">
+                                    <div>
+                                        <div style="color: #fff; font-weight: bold;">${bank.name}</div>
+                                        <div style="color: #888; font-size: 0.8em;">${(bank.interestRate * 100).toFixed(3)}% APY • ${bank.interestType}</div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <div style="color: #4caf50; font-weight: bold;">${formatCurrency(bank.balance)}</div>
+                                        <div style="color: #ff9800; font-size: 0.8em;">+${formatCurrency(annualInterest)}/year</div>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+                ` : ''}
+                
+                <div style="margin-bottom: 20px; padding: 15px; background: #333; border-radius: 8px;">
+                    <h3 style="color: #f44336; margin: 0 0 10px 0;">⚠️ Recommendations</h3>
+                    <ul style="margin: 0; padding-left: 20px; color: #e0e0e0;">
+                        ${reportData.summary.savingsRate < 10 ? '<li style="color: #ff9800;">Consider increasing your savings rate to at least 10-20%</li>' : ''}
+                        ${reportData.summary.netMonthly < 0 ? '<li style="color: #f44336;">Address negative cash flow by reducing expenses or increasing income</li>' : ''}
+                        ${bankData.length === 1 ? '<li style="color: #2196f3;">Consider diversifying across multiple bank accounts for better rates</li>' : ''}
+                        ${bankData.length > 1 && Math.max(...bankData.map(b => b.interestRate)) - Math.min(...bankData.map(b => b.interestRate)) > 0.02 ? '<li style="color: #ff9800;">Move funds from low-interest to high-interest accounts</li>' : ''}
+                        ${reportData.projections.netGrowth > 0 ? '<li style="color: #4caf50;">Great job! Your finances are on a positive trajectory</li>' : ''}
+                    </ul>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <button onclick="downloadFinancialReport()" style="background: #4caf50; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; margin-right: 10px;">
+                        📥 Download Report
+                    </button>
+                    <button onclick="this.closest('div').remove()" style="background: #666; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer;">
+                        Close
+                    </button>
+                </div>
+                
+                <div style="margin-top: 15px; text-align: center; color: #888; font-size: 0.8em;">
+                    Report generated on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Store report data for download
+    window.currentReportData = reportData;
+    
+    // Display the report
+    document.body.insertAdjacentHTML('beforeend', reportHTML);
+    
+    showNotification('Financial report generated successfully', 'success');
+}
+
+function downloadFinancialReport() {
+    if (!window.currentReportData) {
+        showNotification('No report data available', 'error');
+        return;
+    }
+    
+    const reportData = window.currentReportData;
+    
+    // Create detailed JSON report
+    const detailedReport = {
+        ...reportData,
+        budgetData: budgetData,
+        bankData: bankData,
+        recommendations: []
+    };
+    
+    // Add recommendations based on analysis
+    if (reportData.summary.savingsRate < 10) {
+        detailedReport.recommendations.push('Increase savings rate to at least 10-20%');
+    }
+    if (reportData.summary.netMonthly < 0) {
+        detailedReport.recommendations.push('Address negative cash flow');
+    }
+    if (bankData.length === 1) {
+        detailedReport.recommendations.push('Consider diversifying bank accounts');
+    }
+    
+    const dataStr = JSON.stringify(detailedReport, null, 2);
+    const dataBlob = new Blob([dataStr], {type: 'application/json'});
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(dataBlob);
+    link.download = `financial_report_${new Date().toISOString().split('T')[0]}.json`;
+    link.click();
+    
+    showNotification('Financial report downloaded successfully!', 'success');
+}
+
+// Update the keyboard shortcuts to close dropdowns on Escape
+document.addEventListener('keydown', function(e) {
+    // Existing shortcuts...
+    if ((e.ctrlKey || e.metaKey) && e.key === 'b') {
+        e.preventDefault();
+        openBudgetModal();
+    }
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'B') {
+        e.preventDefault();
+        openBankModal();
+    }
+    if ((e.ctrlKey || e.metaKey) && e.key === 't') {
+        e.preventDefault();
+        toggleBankSection();
+    }
+    
+    // Close modals and dropdowns on Escape
+    if (e.key === 'Escape') {
+        closeBudgetModal();
+        closeBankModal();
+        closeQuickAddPanel();
+        closeExportPanel();
+        closeAnalysisPanel();
+        
+        // Close any open report overlays
+        const overlays = document.querySelectorAll('[style*="position: fixed"][style*="z-index: 10000"]');
+        overlays.forEach(overlay => overlay.remove());
+    }
+});
 
 
 function initializeDashboard() {
