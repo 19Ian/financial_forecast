@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Dashboard</title>
+    <title>Budget Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
@@ -135,78 +135,6 @@
             background-color: #2a2a2a;
             color: #e0e0e0;
         }
-        .transaction-list {
-            max-height: 400px;
-            overflow-y: auto;
-            border: 1px solid #444;
-            border-radius: 8px;
-            background: #2a2a2a;
-        }
-        .transaction-item {
-            padding: 15px;
-            border-bottom: 1px solid #333;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: background-color 0.2s ease;
-        }
-        .transaction-item:hover {
-            background-color: #333;
-        }
-        .transaction-item:last-child {
-            border-bottom: none;
-        }
-        .transaction-item strong {
-            color: #ffffff;
-            font-size: 1em;
-        }
-        .transaction-item small {
-            color: #888;
-            font-size: 0.85em;
-        }
-        
-        /* Transaction management styles */
-        .transaction-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .add-transaction-btn {
-            background: #4caf50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.2s ease;
-        }
-        .add-transaction-btn:hover {
-            background: #45a049;
-        }
-        .delete-btn {
-            background: #f44336;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-            margin-left: 10px;
-            transition: background-color 0.2s ease;
-        }
-        .delete-btn:hover {
-            background: #da190b;
-        }
-        .transaction-details {
-            flex: 1;
-        }
-        .transaction-actions {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
         
         /* Modal styles */
         .modal {
@@ -291,22 +219,141 @@
             color: #fff;
         }
         
-        /* Custom scrollbar */
-        .transaction-list::-webkit-scrollbar {
-            width: 8px;
+        /* Budget Management Styles */
+        .budget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
-        .transaction-list::-webkit-scrollbar-track {
-            background: #1e1e1e;
+
+        .budget-list {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #444;
+            border-radius: 8px;
+            background: #2a2a2a;
+        }
+
+        .budget-item {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+        }
+
+        .budget-item:hover {
+            background-color: #333;
+        }
+
+        .budget-item:last-child {
+            border-bottom: none;
+        }
+
+        .budget-details {
+            flex: 1;
+        }
+
+        .budget-details strong {
+            color: #ffffff;
+            font-size: 1em;
+        }
+
+        .budget-details small {
+            color: #888;
+            font-size: 0.85em;
+        }
+
+        .budget-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px;
+        }
+
+        .add-transaction-btn {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s ease;
+        }
+        .add-transaction-btn:hover {
+            background: #45a049;
+        }
+
+        .edit-btn {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 5px 10px;
             border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.2s ease;
         }
-        .transaction-list::-webkit-scrollbar-thumb {
-            background: #444;
+
+        .edit-btn:hover {
+            background: #1976d2;
+        }
+
+        .delete-btn {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
             border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 10px;
+            transition: background-color 0.2s ease;
         }
-        .transaction-list::-webkit-scrollbar-thumb:hover {
-            background: #555;
+        .delete-btn:hover {
+            background: #da190b;
         }
-        
+
+        .budget-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #333;
+            border-radius: 8px;
+        }
+
+        .budget-summary-item {
+            text-align: center;
+        }
+
+        .budget-summary-item h4 {
+            margin: 0 0 5px 0;
+            color: #b0b0b0;
+            font-size: 0.9em;
+        }
+
+        .budget-summary-item .value {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .budget-item.ended {
+            opacity: 0.6;
+            background-color: #444 !important;
+        }
+
+        .form-group small {
+            color: #888;
+            font-size: 0.8em;
+            display: block;
+            margin-top: 5px;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             body {
@@ -320,7 +367,7 @@
                 grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
                 gap: 15px;
             }
-            .transaction-header {
+            .budget-header {
                 flex-direction: column;
                 align-items: stretch;
                 gap: 15px;
@@ -330,112 +377,112 @@
                 width: 95%;
                 padding: 20px;
             }
+            .budget-summary {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 10px;
+            }
         }
-		.new-transaction {
-			background-color: rgba(76, 175, 80, 0.2) !important;
-			border-left: 3px solid #4caf50;
-			animation: newTransactionGlow 2s ease-in-out;
-		}
-
-		@keyframes newTransactionGlow {
-			0% { box-shadow: 0 0 5px rgba(76, 175, 80, 0.8); }
-			50% { box-shadow: 0 0 15px rgba(76, 175, 80, 0.6); }
-			100% { box-shadow: 0 0 5px rgba(76, 175, 80, 0.3); }
-		}
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Financial Dashboard</h1>
-            <p id="dateRange"></p>
+            <h1>Budget Dashboard</h1>
+            <p>Manage your budget and forecast your financial future</p>
         </div>
 
         <div class="stats-grid">
-            <div class="stat-card">
-                <h3>Starting Balance</h3>
-                <div class="stat-value" id="startingBalance">$0</div>
-            </div>
             <div class="stat-card">
                 <h3>Current Balance</h3>
                 <div class="stat-value" id="currentBalance">$0</div>
             </div>
             <div class="stat-card">
-                <h3>Total Income</h3>
-                <div class="stat-value positive" id="totalIncome">$0</div>
+                <h3>Monthly Income</h3>
+                <div class="stat-value positive" id="monthlyIncome">$0</div>
             </div>
             <div class="stat-card">
-                <h3>Total Expenses</h3>
-                <div class="stat-value negative" id="totalExpenses">$0</div>
+                <h3>Monthly Expenses</h3>
+                <div class="stat-value negative" id="monthlyExpenses">$0</div>
             </div>
-        </div>
-
-        <div class="controls">
-            <div class="control-group">
-                <label for="chartType">Chart Type:</label>
-                <select id="chartType" onchange="updateCharts()">
-                    <option value="balance">Balance Over Time</option>
-                    <option value="transactions">Transaction Amounts</option>
-                    <option value="monthly">Monthly Summary</option>
-                    <option value="categories">Category Breakdown</option>
-                </select>
-            </div>
-            <div class="control-group">
-                <label for="timeRange">Time Range:</label>
-                <select id="timeRange" onchange="updateCharts()">
-                    <option value="all">All Time</option>
-                    <option value="6months">Last 6 Months</option>
-                    <option value="3months">Last 3 Months</option>
-                    <option value="1month">Last Month</option>
-                </select>
+            <div class="stat-card">
+                <h3>Net Monthly</h3>
+                <div class="stat-value" id="netMonthly">$0</div>
             </div>
         </div>
 
         <div class="chart-container">
+            <h3>Budget Analysis</h3>
+            <div class="controls">
+                <div class="control-group">
+                    <label for="forecastChartType">Chart Type:</label>
+                    <select id="forecastChartType" onchange="updateForecastChart()">
+                        <option value="forecast">Financial Forecast</option>
+                        <option value="categories">Budget Categories</option>
+                        <option value="monthly">Monthly Comparison</option>
+                        <option value="breakdown">Income vs Expenses</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="forecastMonths">Forecast Period:</label>
+                    <select id="forecastMonths" onchange="updateForecastChart()">
+                        <option value="6">6 Months</option>
+                        <option value="12" selected>12 Months</option>
+                        <option value="18">18 Months</option>
+                        <option value="24">24 Months</option>
+                    </select>
+                </div>
+            </div>
             <div class="chart-wrapper">
-                <canvas id="mainChart"></canvas>
+                <canvas id="forecastChart"></canvas>
             </div>
         </div>
 
         <div class="chart-container">
-            <div class="transaction-header">
-                <h3>Recent Transactions</h3>
-                <button class="add-transaction-btn" onclick="openAddTransactionModal()">
-                    + Add Transaction
+            <div class="budget-header">
+                <h3>Budget Management</h3>
+                <button class="add-transaction-btn" onclick="openBudgetModal()">
+                    + Add Budget Item
                 </button>
             </div>
-            <div class="transaction-list" id="transactionList"></div>
+            <div class="budget-list" id="budgetList"></div>
         </div>
     </div>
 
-    <!-- Add Transaction Modal -->
-    <div id="addTransactionModal" class="modal">
+    <!-- Budget Management Modal -->
+    <div id="budgetModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeAddTransactionModal()">&times;</span>
-            <h2>Add New Transaction</h2>
-            <form id="addTransactionForm">
+            <span class="close" onclick="closeBudgetModal()">&times;</span>
+            <h2 id="budgetModalTitle">Add Budget Item</h2>
+            <form id="budgetForm">
                 <div class="form-group">
-                    <label for="transactionName">Transaction Name:</label>
-                    <input type="text" id="transactionName" required>
+                    <label for="budgetName">Budget Category:</label>
+                    <input type="text" id="budgetName" required placeholder="e.g., Groceries, Entertainment, Utilities">
                 </div>
                 <div class="form-group">
-                    <label for="transactionAmount">Amount:</label>
-                    <input type="number" id="transactionAmount" step="0.01" required>
+                    <label for="budgetAmount">Monthly Amount:</label>
+                    <input type="number" id="budgetAmount" step="0.01" required placeholder="Enter monthly budget amount">
                 </div>
-                <div class="form-group">
-                    <label for="transactionType">Type:</label>
-                    <select id="transactionType" required>
-                        <option value="income">Income</option>
+                                <div class="form-group">
+                    <label for="budgetType">Type:</label>
+                    <select id="budgetType" required>
                         <option value="expense">Expense</option>
+                        <option value="income">Income</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="transactionDate">Date:</label>
-                    <input type="date" id="transactionDate" required>
+                    <label for="budgetStartDate">Start Date:</label>
+                    <input type="date" id="budgetStartDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="budgetEndDate">End Date (Optional):</label>
+                    <input type="date" id="budgetEndDate" placeholder="Leave blank for ongoing budget">
+                    <small style="color: #888; font-size: 0.8em; display: block; margin-top: 5px;">
+                        Leave blank for an ongoing budget item
+                    </small>
                 </div>
                 <div class="modal-buttons">
-                    <button type="button" class="btn btn-secondary" onclick="closeAddTransactionModal()">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add Transaction</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeBudgetModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="budgetSubmitBtn">Add Budget Item</button>
                 </div>
             </form>
         </div>
@@ -444,3 +491,4 @@
     <script src="financial_dashboard.js"></script>
 </body>
 </html>
+
