@@ -6,7 +6,6 @@ let editingBudgetId = null;
 let editingBankId = null;
 
 // Enhanced initialization to load from localStorage if available
-// Enhanced initialization to load from localStorage if available
 document.addEventListener('DOMContentLoaded', async function() {
     try {
         // Try to load from localStorage first
@@ -38,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             // Load bank data
             if (localData.banks && Array.isArray(localData.banks)) {
                 bankData = localData.banks;
-                console.log('Loaded bank data:', bankData.length, 'accounts');
+                console.log('Loaded bank data:', bankData.length, 'accounts from local storage');
             } else {
                 bankData = [];
             }
@@ -46,8 +45,11 @@ document.addEventListener('DOMContentLoaded', async function() {
             showNotification('Loaded saved changes from browser storage', 'info');
         } else {
             // Load from JSON file
-            const response = await fetch('financial_data.json');
+            console.log("before file fetch");
+            const response = await fetch('new_financial_data.json');
             financialData = await response.json();
+            console.log("banks from json: ", financialData.banks);
+            console.log("budget info from json:", financialData.budget);
             
             // Initialize budget data from JSON or empty
             if (financialData.budget && Array.isArray(financialData.budget)) {
@@ -481,7 +483,7 @@ function saveBudgetItem() {
     const type = document.getElementById('budgetType').value;
     const startDate = document.getElementById('budgetStartDate').value;
     const endDate = document.getElementById('budgetEndDate').value;
-    const linkedBankId = document.getElementById('budgetLinkedBank').value;
+    const linkedBankId = parseInt(document.getElementById('budgetLinkedBank').value, 10);
 
     console.log('Budget form values:', { name, amount, type, startDate, endDate, linkedBankId });
 
@@ -512,6 +514,7 @@ function saveBudgetItem() {
                 linkedBankId: linkedBankId || null
             };
             showNotification(`Updated budget item "${name}"`, 'success');
+            console.log("Budget Item linked to: " + linkedBankId);
         }
     } else {
         // Add new budget item
@@ -1090,6 +1093,7 @@ document.addEventListener('keydown', function(e) {
 function exportAllData() {
     const exportData = {
         budget: budgetData,
+        banks: bankData,
         exportDate: new Date().toISOString(),
         version: '1.0'
     };
@@ -1120,9 +1124,12 @@ function importBudgetData() {
             try {
                 const importedData = JSON.parse(e.target.result);
                 
-                if (importedData.budget && Array.isArray(importedData.budget)) {
+                if (importedData.budget && Array.isArray(importedData.budget) && importedData.banks && Array.isArray(importedData.banks)) {
                     if (confirm('This will replace your current budget data. Continue?')) {
                         budgetData = importedData.budget;
+                        bankData = importedData.banks;
+                        saveBankData();
+                        updateBankList();
                         saveBudgetData();
                         updateBudgetList();
                         updateStats();
@@ -1147,38 +1154,11 @@ function resetToOriginal() {
     if (confirm('Are you sure you want to reset all budget data? This cannot be undone.')) {
         localStorage.removeItem('financialData');
         localStorage.removeItem('budgetData');
+        localStorage.removeItem('bankData');
         location.reload();
     }
 }
 
-// Update utility buttons to include budget features
-function addUtilityButtons() {
-    const utilityHTML = `
-        <div class="utility-buttons" style="margin-top: 20px; text-align: center;">
-            <button class="btn btn-secondary" onclick="exportAllData()" style="margin: 0 10px;">
-                Export Budget Data
-            </button>
-            <button class="btn btn-secondary" onclick="importBudgetData()" style="margin: 0 10px;">
-                Import Budget Data
-            </button>
-            <button class="btn btn-secondary" onclick="debugStorage()" style="margin: 0 10px;">
-                Debug Storage
-            </button>
-            <button class="btn btn-secondary" onclick="resetToOriginal()" style="margin: 0 10px;">
-                Reset All Data
-            </button>
-        </div>
-        <div style="margin-top: 10px; text-align: center; color: #888; font-size: 0.8em;">
-            Keyboard shortcuts: Ctrl+B (New Budget Item), Esc (Close Modal)
-        </div>
-    `;
-    
-    // Add to the last chart container
-    const lastContainer = document.querySelector('.chart-container:last-child');
-    if (lastContainer && !lastContainer.querySelector('.utility-buttons')) {
-        lastContainer.insertAdjacentHTML('beforeend', utilityHTML);
-    }
-}
 
 function debugStorage() {
     console.log('=== STORAGE DEBUG ===');
@@ -1843,22 +1823,8 @@ function addUtilityButtons() {
                         <div class="export-item" onclick="exportAllData(); closeExportPanel();">
                             <span class="icon">💾</span>
                             <div class="details">
-                                <div class="name">Export All Data</div>
+                                <div class="name">Export Data</div>
                                 <div class="description">Complete budget and bank data</div>
-                            </div>
-                        </div>
-                        <div class="export-item" onclick="exportBudgetOnly(); closeExportPanel();">
-                            <span class="icon">📊</span>
-                            <div class="details">
-                                <div class="name">Export Budget Only</div>
-                                <div class="description">Budget items and categories</div>
-                            </div>
-                        </div>
-                        <div class="export-item" onclick="exportBankData(); closeExportPanel();">
-                            <span class="icon">🏦</span>
-                            <div class="details">
-                                <div class="name">Export Banks Only</div>
-                                <div class="description">Bank accounts and balances</div>
                             </div>
                         </div>
                         <div class="export-item" onclick="exportForecasts(); closeExportPanel();">
@@ -1876,20 +1842,6 @@ function addUtilityButtons() {
                             <div class="details">
                                 <div class="name">Import Data</div>
                                 <div class="description">Load saved budget/bank data</div>
-                            </div>
-                        </div>
-                        <div class="export-item" onclick="createBankBackup(); closeExportPanel();">
-                            <span class="icon">🔄</span>
-                            <div class="details">
-                                <div class="name">Create Backup</div>
-                                <div class="description">Save current state</div>
-                            </div>
-                        </div>
-                        <div class="export-item" onclick="restoreBankBackup(); closeExportPanel();">
-                            <span class="icon">⏮️</span>
-                            <div class="details">
-                                <div class="name">Restore Backup</div>
-                                <div class="description">Load previous backup</div>
                             </div>
                         </div>
                     </div>
@@ -2277,6 +2229,7 @@ function saveBankData() {
         // Also save separately for backup
         localStorage.setItem('bankData', JSON.stringify(bankData));
         console.log('Bank data saved:', bankData.length, 'accounts');
+        console.log('Current bank data: ', bankData);
     } catch (error) {
         console.error('Error saving bank data:', error);
         showNotification('Error saving bank data', 'error');

@@ -1,0 +1,27 @@
+{
+  "banks": [
+    {
+      "id": 419531,
+      "name": "BOK Checking",
+      "balance": 5000,
+      "interestRate": 0,
+      "interestType": "compound"
+    },
+    {
+      "id": 422402,
+      "name": "Capital One 360",
+      "balance": 3000,
+      "interestRate": 0.036,
+      "interestType": "compound"
+    }
+  ],
+  "summary": {
+    "totalAccounts": 2,
+    "totalBalance": 8000,
+    "averageInterestRate": 1.7999999999999998,
+    "compoundAccounts": 2,
+    "simpleAccounts": 0
+  },
+  "exportDate": "2025-08-08T20:47:58.428Z",
+  "version": "1.2"
+}

@@ -4,7 +4,10 @@ Web CRUD application to view current financial state and past transaction. Also 
 
 ## To run:
 ### Start Server:
+Make sure you are in the directory of your project, then run:
+```bash
 python -m http.server 8000
+```
 
 ### Run
 After starting the server, run the python file which should generate the data if you don't have it already.
