@@ -1808,108 +1808,108 @@ function analyzeOptimalBankAllocation() {
 }
 
 // Update utility buttons to include bank-specific actions
-function addUtilityButtons() {
-    const utilityHTML = `
-        <div class="utility-buttons" style="margin-top: 20px; text-align: center; display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap;">
-            <!-- Export Dropdown -->
-            <div class="export-dropdown">
-                <button class="export-button" onclick="toggleExportPanel()" id="exportButton">
-                    📤 Export & Import
-                </button>
-                <div class="export-panel" id="exportPanel">
-                    <h4>Data Management</h4>
-                    <div class="export-section">
-                        <div class="export-section-title">Export Options</div>
-                        <div class="export-item" onclick="exportAllData(); closeExportPanel();">
-                            <span class="icon">💾</span>
-                            <div class="details">
-                                <div class="name">Export Data</div>
-                                <div class="description">Complete budget and bank data</div>
-                            </div>
-                        </div>
-                        <div class="export-item" onclick="exportForecasts(); closeExportPanel();">
-                            <span class="icon">📈</span>
-                            <div class="details">
-                                <div class="name">Export Forecasts</div>
-                                <div class="description">Financial projections (CSV)</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="export-section">
-                        <div class="export-section-title">Import Options</div>
-                        <div class="export-item" onclick="importBudgetData(); closeExportPanel();">
-                            <span class="icon">📥</span>
-                            <div class="details">
-                                <div class="name">Import Data</div>
-                                <div class="description">Load saved budget/bank data</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+// function addUtilityButtons() {
+//     const utilityHTML = `
+//         <div class="utility-buttons" style="margin-top: 20px; text-align: center; display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap;">
+//             <!-- Export Dropdown -->
+//             <div class="export-dropdown">
+//                 <button class="export-button" onclick="toggleExportPanel()" id="exportButton">
+//                     📤 Export & Import
+//                 </button>
+//                 <div class="export-panel" id="exportPanel">
+//                     <h4>Data Management</h4>
+//                     <div class="export-section">
+//                         <div class="export-section-title">Export Options</div>
+//                         <div class="export-item" onclick="exportAllData(); closeExportPanel();">
+//                             <span class="icon">💾</span>
+//                             <div class="details">
+//                                 <div class="name">Export Data</div>
+//                                 <div class="description">Complete budget and bank data</div>
+//                             </div>
+//                         </div>
+//                         <div class="export-item" onclick="exportForecasts(); closeExportPanel();">
+//                             <span class="icon">📈</span>
+//                             <div class="details">
+//                                 <div class="name">Export Forecasts</div>
+//                                 <div class="description">Financial projections (CSV)</div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                     <div class="export-section">
+//                         <div class="export-section-title">Import Options</div>
+//                         <div class="export-item" onclick="importBudgetData(); closeExportPanel();">
+//                             <span class="icon">📥</span>
+//                             <div class="details">
+//                                 <div class="name">Import Data</div>
+//                                 <div class="description">Load saved budget/bank data</div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
             
-            <!-- Analysis Dropdown -->
-            <div class="analysis-dropdown">
-                <button class="analysis-button" onclick="toggleAnalysisPanel()" id="analysisButton">
-                    📊 Analysis Tools
-                </button>
-                <div class="analysis-panel" id="analysisPanel">
-                    <h4 style="margin: 0 0 10px 0; padding: 15px 15px 0 15px; color: #ffffff; font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #333; padding-bottom: 10px;">Analysis Options</h4>
-                    <div class="analysis-item" onclick="analyzeBankPerformance(); closeAnalysisPanel();">
-                        <span class="icon">🏦</span>
-                        <div class="details">
-                            <div class="name">Bank Performance</div>
-                            <div class="description">Interest rates and earnings analysis</div>
-                        </div>
-                    </div>
-                    <div class="analysis-item" onclick="analyzeOptimalBankAllocation(); closeAnalysisPanel();">
-                        <span class="icon">⚖️</span>
-                        <div class="details">
-                            <div class="name">Optimize Allocation</div>
-                            <div class="description">Suggest better fund distribution</div>
-                        </div>
-                    </div>
-                    <div class="analysis-item" onclick="analyzeCashFlow(); closeAnalysisPanel();">
-                        <span class="icon">💰</span>
-                        <div class="details">
-                            <div class="name">Cash Flow Analysis</div>
-                            <div class="description">Income vs expenses breakdown</div>
-                        </div>
-                    </div>
-                    <div class="analysis-item" onclick="analyzeSpendingTrends(); closeAnalysisPanel();">
-                        <span class="icon">📈</span>
-                        <div class="details">
-                            <div class="name">Spending Trends</div>
-                            <div class="description">Category spending patterns</div>
-                        </div>
-                    </div>
-                    <div class="analysis-item" onclick="generateFinancialReport(); closeAnalysisPanel();">
-                        <span class="icon">📋</span>
-                        <div class="details">
-                            <div class="name">Financial Report</div>
-                            <div class="description">Comprehensive overview</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+//             <!-- Analysis Dropdown -->
+//             <div class="analysis-dropdown">
+//                 <button class="analysis-button" onclick="toggleAnalysisPanel()" id="analysisButton">
+//                     📊 Analysis Tools
+//                 </button>
+//                 <div class="analysis-panel" id="analysisPanel">
+//                     <h4 style="margin: 0 0 10px 0; padding: 15px 15px 0 15px; color: #ffffff; font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #333; padding-bottom: 10px;">Analysis Options</h4>
+//                     <div class="analysis-item" onclick="analyzeBankPerformance(); closeAnalysisPanel();">
+//                         <span class="icon">🏦</span>
+//                         <div class="details">
+//                             <div class="name">Bank Performance</div>
+//                             <div class="description">Interest rates and earnings analysis</div>
+//                         </div>
+//                     </div>
+//                     <div class="analysis-item" onclick="analyzeOptimalBankAllocation(); closeAnalysisPanel();">
+//                         <span class="icon">⚖️</span>
+//                         <div class="details">
+//                             <div class="name">Optimize Allocation</div>
+//                             <div class="description">Suggest better fund distribution</div>
+//                         </div>
+//                     </div>
+//                     <div class="analysis-item" onclick="analyzeCashFlow(); closeAnalysisPanel();">
+//                         <span class="icon">💰</span>
+//                         <div class="details">
+//                             <div class="name">Cash Flow Analysis</div>
+//                             <div class="description">Income vs expenses breakdown</div>
+//                         </div>
+//                     </div>
+//                     <div class="analysis-item" onclick="analyzeSpendingTrends(); closeAnalysisPanel();">
+//                         <span class="icon">📈</span>
+//                         <div class="details">
+//                             <div class="name">Spending Trends</div>
+//                             <div class="description">Category spending patterns</div>
+//                         </div>
+//                     </div>
+//                     <div class="analysis-item" onclick="generateFinancialReport(); closeAnalysisPanel();">
+//                         <span class="icon">📋</span>
+//                         <div class="details">
+//                             <div class="name">Financial Report</div>
+//                             <div class="description">Comprehensive overview</div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
             
-            <!-- Individual Action Buttons -->
-            <button class="btn btn-secondary" onclick="debugStorage()" style="margin: 0 5px; font-size: 13px; padding: 8px 16px;">
-                🐛 Debug
-            </button>
-            <button class="btn btn-secondary" onclick="resetToOriginal()" style="margin: 0 5px; font-size: 13px; padding: 8px 16px;">
-                🔄 Reset All
-            </button>
-        </div>
-        <div style="margin-top: 10px; text-align: center; color: #888; font-size: 0.8em;">
-            Keyboard shortcuts: Ctrl+B (New Budget), Ctrl+Shift+B (New Bank), Ctrl+T (Toggle Banks), Esc (Close Modal)
-        </div>
-    `;
-    const lastContainer = document.querySelector('.chart-container:last-child');
-    if (lastContainer && !lastContainer.querySelector('.utility-buttons')) {
-        lastContainer.insertAdjacentHTML('beforeend', utilityHTML);
-    }
-}
+//             <!-- Individual Action Buttons -->
+//             <button class="btn btn-secondary" onclick="debugStorage()" style="margin: 0 5px; font-size: 13px; padding: 8px 16px;">
+//                 🐛 Debug
+//             </button>
+//             <button class="btn btn-secondary" onclick="resetToOriginal()" style="margin: 0 5px; font-size: 13px; padding: 8px 16px;">
+//                 🔄 Reset All
+//             </button>
+//         </div>
+//         <div style="margin-top: 10px; text-align: center; color: #888; font-size: 0.8em;">
+//             Keyboard shortcuts: Ctrl+B (New Budget), Ctrl+Shift+B (New Bank), Ctrl+T (Toggle Banks), Esc (Close Modal)
+//         </div>
+//     `;
+//     const lastContainer = document.querySelector('.chart-container:last-child');
+//     if (lastContainer && !lastContainer.querySelector('.utility-buttons')) {
+//         lastContainer.insertAdjacentHTML('beforeend', utilityHTML);
+//     }
+// }
 
 
 // Enhanced error handling and user feedback
@@ -3230,5 +3230,5 @@ function initializeDashboard() {
     updateBudgetList();
     updateBankList();
     updateForecastChart();
-    addUtilityButtons();
+    // addUtilityButtons();
 }
