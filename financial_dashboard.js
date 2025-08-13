@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         
     } catch (error) {
         console.error('Error loading financial data:', error);
-        alert('Error loading financial data. Make sure you have run the Python script first.');
+        alert('Error loading financial data. Either import new data or start the server.');
     }
 });
 
@@ -277,9 +277,20 @@ function saveDataLocally() {
 
 function loadDataLocally() {
     const saved = localStorage.getItem('financialData');
+    const localBudgetData = localStorage.getItem('budgetData');
+    const localBankData = localStorage.getItem('bankData');
     if (saved) {
         try {
             return JSON.parse(saved);
+        } catch (error) {
+            console.error('Error parsing saved data:', error);
+            return null;
+        }
+    }
+    else if (localBudgetData && localBankData) {
+        try {
+            console.log("{\n\"budget\":\n" + localBudgetData + ",\n\"banks\":\n" + localBankData + "\n}");
+            return JSON.parse("{\n\"budget\":\n" + localBudgetData + ",\n\"banks\":\n" + localBankData + "\n}");
         } catch (error) {
             console.error('Error parsing saved data:', error);
             return null;
