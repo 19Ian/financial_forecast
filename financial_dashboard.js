@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         } else {
             // Load from JSON file
             console.log("before file fetch");
-            const response = await fetch('new_financial_data.json');
+            const response = await fetch('default_data.json');
             financialData = await response.json();
             console.log("banks from json: ", financialData.banks);
             console.log("budget info from json:", financialData.budget);
